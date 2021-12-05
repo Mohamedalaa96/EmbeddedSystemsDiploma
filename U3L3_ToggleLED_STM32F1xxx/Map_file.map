@@ -73,11 +73,11 @@ OUTPUT(application.elf elf32-littlearm)
  .debug_line    0x00000000      0x12b main.o
  .debug_line    0x0000012b       0x3b startup.o
 
-.debug_str      0x00000000      0x155
- .debug_str     0x00000000      0x13c main.o
-                                0x179 (size before relaxing)
- .debug_str     0x0000013c       0x19 startup.o
-                                 0x83 (size before relaxing)
+.debug_str      0x00000000      0x154
+ .debug_str     0x00000000      0x13b main.o
+                                0x178 (size before relaxing)
+ .debug_str     0x0000013b       0x19 startup.o
+                                 0x82 (size before relaxing)
 
 .comment        0x00000000       0x7e
  .comment       0x00000000       0x7e main.o
