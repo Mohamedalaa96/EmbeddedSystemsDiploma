@@ -7,6 +7,9 @@ C_FLAGS = -c -g
 INCS = -I . 
 OUTPUT_FILE = application
 LIB = #already built libraries
+SRC = $(wildcard *.c)
+OBJ = $(SRC:.c=.o)
+
 # $< works with only one dependenecy(1st one)
 all: $(OUTPUT_FILE).bin
 #all is the default target.
@@ -14,14 +17,12 @@ all: $(OUTPUT_FILE).bin
 startup.o: startup.s 
 	$(CC)-as $(C_TARGET) -g $< -o $@
 
-main.o: main.c
+#for all .c files dependenet on .o file with same name
+%.o: %.c
 	$(CC)-gcc $(C_FLAGS) $(C_TARGET) $< -o $@
 
-uart.o: uart.c
-	$(CC)-gcc $(C_FLAGS) $(C_TARGET) $< -o $@
-
-$(OUTPUT_FILE).elf:  uart.o main.o startup.o
-	$(CC)-ld -T linker_script.ld uart.o main.o startup.o $(LIB)  -o $@ -Map=Map_file.map
+$(OUTPUT_FILE).elf:  $(OBJ) startup.o
+	$(CC)-ld -T linker_script.ld $(OBJ) startup.o $(LIB)  -o $@ -Map=Map_file.map
 
 $(OUTPUT_FILE).bin: $(OUTPUT_FILE).elf
 	$(CC)-objcopy -O binary $<  $@
@@ -32,6 +33,7 @@ clean:
 # removes the executable file, as well as old .o object
 # files and *~ backup files:
 #$(RM) remove command
-	$(RM) count *.o *~
+	@echo "Cleaning All"
+	$(RM) count *.o *~ *.bin *.elf
 	
 
