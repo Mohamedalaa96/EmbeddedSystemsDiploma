@@ -60,7 +60,7 @@ Linker script and memory map
 LOAD startup.o
 LOAD main.o
 LOAD uart.o
-OUTPUT(app.elf elf32-littlearm)
+OUTPUT(application.elf elf32-littlearm)
 
 .ARM.attributes
                 0x00000000       0x2e
@@ -75,3 +75,19 @@ OUTPUT(app.elf elf32-littlearm)
  .comment       0x00000000       0x7e main.o
                                  0x7f (size before relaxing)
  .comment       0x0000007e       0x7f uart.o
+
+.debug_line     0x00000000       0x3a
+ .debug_line    0x00000000       0x3a startup.o
+
+.debug_info     0x00000000       0x26
+ .debug_info    0x00000000       0x26 startup.o
+
+.debug_abbrev   0x00000000       0x14
+ .debug_abbrev  0x00000000       0x14 startup.o
+
+.debug_aranges  0x00000000       0x20
+ .debug_aranges
+                0x00000000       0x20 startup.o
+
+.debug_str      0x00000000       0x76
+ .debug_str     0x00000000       0x76 startup.o
